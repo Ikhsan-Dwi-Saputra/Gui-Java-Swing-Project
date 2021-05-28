@@ -7,66 +7,57 @@ import java.awt.event.ActionListener;
 public class MencariDataMahasiswa {
     private JTextField textFieldNama;
     private JTextField TextFieldNim;
-    private JButton simpanButton;
+    private JButton CariButton;
     private JPanel basePanel;
-    private JTextField resultName;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField1;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField7;
-    private JButton button1;
+    private JButton ulangButton;
     private JTextPane createdByIkhsanDwiTextPane;
-    private JTextArea Result;
-    private String ResultNim;
+    private JLabel logo;
+    private JTextArea outputresult;
+
 
 
     public MencariDataMahasiswa() {
-        simpanButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-                String nama = textFieldNama.getText();
-                String nim = TextFieldNim.getText();
+        //CARI BUTTON
+        CariButton.addActionListener(e -> {
+            String nama = textFieldNama.getText();
+            String nim = TextFieldNim.getText();
 
-                DataResource dr = new DataResource();
-                dr.setNama(nama);
-                dr.setNim(nim);
+            DataResource dr = new DataResource();
+            dr.setNama(nama);
+            dr.setNim(nim);
 
-                resultName.setText(dr.name());
-                textField2.setText(dr.nim());
-                textField3.setText(dr.getJenjangPendidikan());
-                textField1.setText(dr.getTahunMasuk());
-                textField4.setText(dr.getFakultas());
-                textField5.setText(dr.getJurusan());
-                textField6.setText(dr.getJenisKelamin());
-                textField7.setText(dr.getUrutaMahasiswa());
+            //MESSAGE DIALOG
+            JOptionPane.showMessageDialog(null, "Pastikan Nim 11 Angka!","Info", JOptionPane.INFORMATION_MESSAGE);
+            if (textFieldNama.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Mohon Masukkan Nama Anda!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            }else if (TextFieldNim.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Mohon Masukkan Nim Anda!", "Kesalahan", JOptionPane.ERROR_MESSAGE);
             }
 
+            //OUTPUT
+            outputresult.setText(dr.name() + dr.nim() + dr.getTahunMasuk() + dr.getJenjangPendidikan() +
+                    dr.getFakultas() + dr.getJurusan() + dr.getJenisKelamin() + dr.getUrutaMahasiswa());
+            ulangButton.requestFocus();
+        });
 
-        });
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                textFieldNama.setText("");
-                TextFieldNim.setText("");
-                resultName.setText("");
-                textField2.setText("");
-                textField3.setText("");
-                textField1.setText("");
-                textField4.setText("");
-                textField5.setText("");
-                textField6.setText("");
-                textField7.setText("");
-                textFieldNama.requestFocus();
-            }
-        });
+                //ULANG BUTTON
+             ulangButton.addActionListener(e -> {
+                 textFieldNama.setText(null);
+                 TextFieldNim.setText(null);
+                 outputresult.setText(null);
+                 textFieldNama.requestFocus();
+             });
     }
 
+    //BASE PANEL
     public JPanel getBasePanel() {
         return basePanel;
+    }
+
+    //GAMBAR
+    private void createUIComponents() {
+logo = new JLabel(new ImageIcon("uinlogo.png"));
     }
 }
 
